@@ -32,7 +32,6 @@ StateMachine::StateMachine()
 
 void StateMachine::state0(char in)
 {
-	//end and move to the next symbol
 	_currentState = -1;
 	_tmpans.clear();
 }
@@ -92,10 +91,16 @@ std::vector<std::string> StateMachine::run(std::string input)
 				_currentState = 0;
 				break;
 			}
-			(this->*_states[_currentState][input[j]])(input[j]);
+			if (input[j] == '+' || input[j] == '-' || input[j] == 'a' || input[j] == 'b')
+			{
+				(this->*_states[_currentState][input[j]])(input[j]);
+			} else
+			{
+				_currentState = -1;
+				std::cout << "unknown symbol" << std::endl;
+				break;
+			}
 		}
 	}
 	return _ans;
 }
-
-
