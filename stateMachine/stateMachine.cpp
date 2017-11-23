@@ -86,18 +86,21 @@ std::vector<std::string> StateMachine::run(std::string input)
 	{
 		for (int j = i; j < input.size(); ++j)
 		{
+			try 
+			{
+				if (input[j] != '+' && input[j] != '-' && input[j] != 'a' && input[j] != 'b')
+					throw input[j];
+				(this->*_states[_currentState][input[j]])(input[j]);
+			} catch (const char error)
+			{
+				std::cout << "Error: " << error << " - unknown symbol." << std::endl;
+				_tmpans.clear();
+				input.clear();
+				_currentState = -1;
+			}
 			if (_currentState == -1 || _currentState == 6)
 			{
 				_currentState = 0;
-				break;
-			}
-			if (input[j] == '+' || input[j] == '-' || input[j] == 'a' || input[j] == 'b')
-			{
-				(this->*_states[_currentState][input[j]])(input[j]);
-			} else
-			{
-				_currentState = -1;
-				std::cout << "unknown symbol" << std::endl;
 				break;
 			}
 		}
