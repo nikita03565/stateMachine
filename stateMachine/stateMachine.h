@@ -6,13 +6,11 @@
 #include <string>
 #include <vector>
 
-/* Example of using
- * 
+/* Example of using 
  * StateMachine stm;
- *	std::vector<std::string> ans = stm.run("+a-a-ab-b-b+");
+ *	std::vector<std::string> ans = stm.run("+a-a-ab-b-bab-b+");
  *	for (int i = 0; i < ans.size(); ++i)
  *		std::cout << ans[i] << std::endl;
- * 
  */
 class StateMachine
 {
@@ -22,7 +20,7 @@ class StateMachine
 	typedef std::map<char, StateMachineMbFn> MyMap;
 
 	/**
-	 * \brief number of current state, starts for 0, -1 is empty state
+	 * \brief number of current state, starts from 0, -1 is empty state
 	 */
 	int _currentState;
 	
@@ -93,14 +91,11 @@ public:
 	StateMachine();
 	
 	/**
-	 * \brief 
-	 * \param[in] input 
-	 * \return 
+	 * \brief function that starts state machine's work
+	 * \param[in] input input string
+	 * \return retruns a vector of all finded strings
 	 */
 	std::vector<std::string> run(std::string input);
 };
 
-
 #endif
-
-
